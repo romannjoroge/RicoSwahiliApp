@@ -27,9 +27,28 @@
           </div>
         </div>
       </nav>
+
     <!--Paragraph-->
-    <p>Hey boy! Hope you didn't wait too long for this site but its finally come!!</p>
-    <p>Too add a word go to the add page and to play a game go to the game page</p>
+    <h2>Hey boy! Hope you didn't wait too long for this site but its finally come!!</h2>
+    <p>Put the details for the word in the form below</p>
+
+    <!--Form for adding a page-->
+    <form action="add" method="post">
+        <div class="form-group">
+            <label for="word_type">Type of Word</label>
+            <input type="text" id="word_type" placeholder="Type..." class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="sentence">Example Sentence</label>
+            <input type="text" id="sentence" placeholder="Sentence..." class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="ngeli">Ngeli</label>
+            <input type="text" id="ngeli" placeholder="Ngeli..." class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
     <p>Good luck in your exams!</p>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   </body>
