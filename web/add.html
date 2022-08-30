@@ -35,16 +35,24 @@
     <!--Form for adding a page-->
     <form action="add" method="post">
         <div class="form-group">
+            <label for="word">Word</label>
+            <input type="text" name="word" id="word" placeholder="Enter word..." class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="meaning">Meaning</label>
+            <input type="text" name="meaning" id="meaning" placeholder="Meaning of word..." class="form-control" required>
+        </div>
+        <div class="form-group">
             <label for="word_type">Type of Word</label>
-            <input type="text" id="word_type" placeholder="Type..." class="form-control">
+            <input type="text" name="word_type" id="word_type" placeholder="Type..." class="form-control" required>
         </div>
         <div class="form-group">
             <label for="sentence">Example Sentence</label>
-            <input type="text" id="sentence" placeholder="Sentence..." class="form-control">
+            <input type="text" name="sentence" id="sentence" placeholder="Sentence..." class="form-control" required>
         </div>
         <div class="form-group">
             <label for="ngeli">Ngeli</label>
-            <input type="text" id="ngeli" placeholder="Ngeli..." class="form-control">
+            <input type="text" id="ngeli" name="ngeli" placeholder="Ngeli..." class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
