@@ -55,7 +55,7 @@ async function getWordLiner(req, res) {
         const data = await pool.query(statements.getWordLiner, [id])
         // If word doesn't exist return error
         if (data.rowCount == 0){
-            return res.status(404).json({data: 'No Word Was Found'})
+            return res.status(404).json({data: 'No More Words'})
         }
         // Get object from data.rows
         const object = data.rows[0]
