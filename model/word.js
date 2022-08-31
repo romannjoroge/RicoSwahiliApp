@@ -72,7 +72,7 @@ async function addScore(req, res){
         gamemode
     } = req.body
     // Convert score to an int
-    score = parseInt(score)
+    score = parseFloat(score)
 
     // Insert score from site to server
     try{
