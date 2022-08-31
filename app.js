@@ -5,9 +5,10 @@ const app = express()
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended:true }))
+app.use(express.static('./web'))
 
 // Database functions
-const {addWord} = require('./model/word')
+const word = require('./model/word')
 
 // Routes
 // Homepage
@@ -19,7 +20,18 @@ app.route('/').get((req, res)=>{
 app.get('/add', (req, res)=>{
     res.status(200).sendFile(path.join(__dirname + '/web/add.html'))
 })
-app.post('/add', addWord)
+app.post('/add', word.addWord)
+
+// Game page
+app.get('/game', (req, res)=>{
+    res.status(200).sendFile(path.join(__dirname + '/web/game.html'))
+})
+
+app.get('/linear', (req, res)=>{
+    res.status(200).sendFile(path.join(__dirname + '/web/linear.html'))
+})
+
+app.get('/linear/:id', word.getWordLiner)
 
 app.get('*', (req, res) =>{
     res.status(404).send('Resource not Found')
