@@ -17,6 +17,7 @@ CREATE TABLE Rico.words (
 CREATE TABLE Rico.scores(
     id serial,
     score int NOT NULL,
+    gamemode varchar(50) NOT NULL,
     timeGotten timestamp (1) with time zone NOT NULL UNIQUE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK3 PRIMARY KEY(id)
 );

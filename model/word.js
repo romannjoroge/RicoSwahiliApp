@@ -1,4 +1,5 @@
 // Database connection
+const { stat } = require('fs')
 const pool = require('../database')
 
 // SQL STATEMENTS
@@ -54,13 +55,46 @@ async function getWordLiner(req, res) {
         const data = await pool.query(statements.getWordLiner, [id])
         // If word doesn't exist return error
         if (data.rowCount == 0){
-            return res.status(404).json({data: 'No Word Found'})
+            return res.status(404).json({data: 'No Word Was Found'})
         }
         // Get object from data.rows
         const object = data.rows[0]
         res.status(200).json({data: object})
     }catch(err){
-        res.status(404).json({data: 'Error'})
+        res.status(404).json({data: 'There is A Problem With Your Request'})
+    }
+}
+
+async function addScore(req, res){
+    // Get score and gamemode from req.body
+    let {
+        score,
+        gamemode
+    } = req.body
+    // Convert score to an int
+    score = parseInt(score)
+
+    // Insert score from site to server
+    try{
+        await pool.query(statements.addScore, [score, gamemode])
+        res.status(201).json({data: "Score sent to server"})
+    }catch(err){
+        res.status(404).json({data: err})
+    }
+}
+
+async function getHighScore(req, res){
+    // Get gamemode from params
+    const gamemode = req.params.gamemode
+    // Return the highscore
+    try{
+        const data = await pool.query(statements.getHighScore, [gamemode])
+        if (data.rowCount == 0){
+            return res.status(200).json({data: "No scores in system"})
+        }
+        res.status(200).json({data: data.rows[0]['max']})
+    }catch(err){
+        res.status(404).json({data: err})
     }
 }
 
@@ -68,5 +102,7 @@ selectWord('Mjomba')
 module.exports = {
     addWord,
     selectWord,
-    getWordLiner
+    getWordLiner,
+    addScore,
+    getHighScore
 }
