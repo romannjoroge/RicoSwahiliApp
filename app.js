@@ -5,6 +5,7 @@ const app = express()
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended:true }))
+app.use(express.json())
 app.use(express.static('./web'))
 
 // Database functions
@@ -27,11 +28,19 @@ app.get('/game', (req, res)=>{
     res.status(200).sendFile(path.join(__dirname + '/web/game.html'))
 })
 
+// Linear Gamemode Landing Page
 app.get('/linear', (req, res)=>{
     res.status(200).sendFile(path.join(__dirname + '/web/linear.html'))
 })
 
+// Getting a word in linear mode
 app.get('/linear/:id', word.getWordLiner)
+
+// Posting a score
+app.post('/score', word.addScore)
+
+// Getting highscore
+app.get('/highscore/:gamemode', word.getHighScore)
 
 app.get('*', (req, res) =>{
     res.status(404).send('Resource not Found')
