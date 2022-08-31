@@ -42,6 +42,13 @@ app.post('/score', word.addScore)
 // Getting highscore
 app.get('/highscore/:gamemode', word.getHighScore)
 
+// Random gamemode
+app.get('/random', (req, res) => {
+    res.sendFile(path.join(__dirname + '/web/random.html'))
+})
+
+app.get('/randomWord', word.getRandomWord)
+
 app.get('*', (req, res) =>{
     res.status(404).send('Resource not Found')
 })
