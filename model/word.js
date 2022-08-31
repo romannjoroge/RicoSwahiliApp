@@ -40,8 +40,33 @@ async function selectWord(word) {
         throw err
     }
 }
+
+async function getWordLiner(req, res) {
+    // Get id of word from req.params
+    let id = req.params.id
+
+    // Convert it to a number 
+    id = parseInt(id)
+
+    // Select word with that id from database
+    try{
+        // Return word, meaning, ngeli, sentence, word_type as json
+        const data = await pool.query(statements.getWordLiner, [id])
+        // If word doesn't exist return error
+        if (data.rowCount == 0){
+            return res.status(404).json({data: 'No Word Found'})
+        }
+        // Get object from data.rows
+        const object = data.rows[0]
+        res.status(200).json({data: object})
+    }catch(err){
+        res.status(404).json({data: 'Error'})
+    }
+}
+
 selectWord('Mjomba')
 module.exports = {
     addWord,
-    selectWord
+    selectWord,
+    getWordLiner
 }
