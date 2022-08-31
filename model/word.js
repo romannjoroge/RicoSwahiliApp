@@ -98,11 +98,45 @@ async function getHighScore(req, res){
     }
 }
 
-selectWord('Mjomba')
+async function getRandomWord(req, res){
+    try{
+        // Getting number of words in database
+        const data = await pool.query(statements.numWords)
+        // Return an error if there are no words
+        if (data.rowCount == 0){
+            return res.status(404).json({data: "No Words in system"})
+        }
+        let numWords = data['rows'][0]['count']
+        numWords = parseInt(numWords)
+
+        // Generate a random word
+        const maxLimit = numWords + 1
+        const minLimit = 1
+        const difference  = maxLimit - minLimit
+
+        // Random number
+        let rand = Math.random()
+        rand = Math.floor(rand * difference)
+        rand = rand + minLimit
+
+        // Return word with the id
+        const data2 = await pool.query(statements.getWordLiner, [rand])
+        if (data2.rowCount == 0){
+            return res.status(404).json({data: "Random Word Couldn't be Found"})
+        }
+        // Get object from data.rows
+        const object = data2.rows[0]
+        res.status(200).json({data: object})
+    }catch(err){
+        res.status(404).json({data: err})
+    }
+}
+
 module.exports = {
     addWord,
     selectWord,
     getWordLiner,
     addScore,
-    getHighScore
+    getHighScore,
+    getRandomWord
 }
