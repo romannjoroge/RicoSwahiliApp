@@ -90,6 +90,7 @@
         let count = 0
         let increment = 1
         let ngeli;
+        let kamusi;
 
         // Selecting items from DOM
         let questionWord = document.getElementById('question-word')
@@ -146,6 +147,7 @@
                 sentence = data['sentence']
                 word = data['word']
                 word_type = data['word_type']
+                kamusi = data['kamusi']
 
                 // Put word in question-word
                 questionWord.textContent = `The word is ${word}`
@@ -157,7 +159,7 @@
         yesButtonEl.addEventListener('click', function() {
             // When it clicks it reveals the div
             hiddenDialogueEl.innerHTML = `
-                        <h6 id="reveal meaning">The word means ${meaning}, Its Ngeli is ${ngeli} and it's a ${word_type}</h6>
+                        <h6 id="reveal meaning">The word means ${meaning}, its Ngeli is ${ngeli}, it's a ${word_type} and the definition from the kamusi is ${kamusi}</h6>
                         <p>Did you get the meaning right? </p>
                         <button type="button" id="right" class="btn btn-success">Yes</button>
                         <button type="button" id="wrong" class="btn btn-danger">No</button>`
@@ -216,6 +218,7 @@
                         sentence = data['sentence']
                         word = data['word']
                         word_type = data['word_type']
+                        kamusi = data['kamusi']
                         
                         // Update sentence
                         questionWord.textContent = `The word is ${word}`

@@ -7,14 +7,16 @@ const statements = require('./db_commands')
 
 // Function for adding a word from the form
 async function addWord(req, res){
-    // Getting word, meaning, word_type, sentence, ngeli from the req.body
+    // Getting word, meaning, word_type, sentence, ngeli, kamusi from the req.body
     const {
         word,
         meaning,
         word_type,
         sentence,
-        ngeli
+        ngeli,
+        kamusi
     } = req.body
+
     // Checking if the word is in the database
     try {
         // Select a record containing the name
@@ -24,7 +26,7 @@ async function addWord(req, res){
             return res.status(400).send('Word already in database enter a different word!')
         }else{
             // Inserting word if not in database
-            await pool.query(statements.addWord, [word, word_type, ngeli, sentence, meaning])
+            await pool.query(statements.addWord, [word, word_type, ngeli, sentence, meaning, kamusi])
             res.status(201).send('Word succesfully added')
         }
     }catch(err){

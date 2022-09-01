@@ -21,3 +21,9 @@ CREATE TABLE Rico.scores(
     timeGotten timestamp (1) with time zone NOT NULL UNIQUE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK3 PRIMARY KEY(id)
 );
+
+-- Adding kamusi column in Rico.words table
+ALTER TABLE Rico.words ADD COLUMN kamusi TEXT;
+UPDATE Rico.words SET kamusi='ndugu wa kiume wa mama; kaka wa mama; hau' WHERE word='Mjomba';
+UPDATE Rico.words SET kamusi='kati ya saa kumi na saa kumi na moja asubuhi' WHERE word='Alfajiri';
+ALTER TABLE Rico.words ALTER COLUMN kamusi SET NOT NULL;
