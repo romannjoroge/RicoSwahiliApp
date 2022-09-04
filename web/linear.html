@@ -91,6 +91,7 @@
         let increment = 1
         let ngeli;
         let kamusi;
+        let ipAddress = '192.168.1.59'
 
         // Selecting items from DOM
         let questionWord = document.getElementById('question-word')
@@ -110,7 +111,7 @@
         function endGame() {
             // Getting highscore
             let highscore;
-            let res = fetch('http://localhost:3000/highscore/linear', {
+            let res = fetch(`/highscore/linear`, {
                             method: "GET"
                         })
             res.then((res)=> res.json())
@@ -136,7 +137,7 @@
         // Adding a listener for when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             // Get word, meaning, sentence, word_type and ngeli from server
-            let res = fetch('http://localhost:3000/linear/' + round.toString(), {
+            let res = fetch(`/linear/` + round.toString(), {
                         method: "GET"
                     })
             res.then((res) => res.json())
@@ -174,7 +175,7 @@
                 // Update the count at the screen
                 countEl.textContent = count
                 // Get another word, meaning, sentence, ngeli and  word_type
-                let res = fetch('http://localhost:3000/linear/' + round.toString(), {
+                let res = fetch(`/linear/` + round.toString(), {
                         method: "GET"
                     })
                 res.then((res) => {
@@ -183,7 +184,7 @@
                         if (res.status == 404){
                             // Getting high score from database
                             let highscore;
-                            let res2 = fetch('http://localhost:3000/highscore/linear', {
+                            let res2 = fetch(`${ipAddress}:3000/highscore/linear`, {
                                 method: "GET"
                             })
                             res2.then((res2)=>res2.json())

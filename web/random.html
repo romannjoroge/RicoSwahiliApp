@@ -108,7 +108,7 @@
         function endGame() {
             // Getting highscore
             let highscore;
-            let res = fetch('http://localhost:3000/highscore/linear', {
+            let res = fetch('/highscore/linear', {
                             method: "GET"
                         })
             res.then((res)=> res.json())
@@ -134,7 +134,7 @@
         // Adding a listener for when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             // Get word, meaning, sentence, word_type and ngeli from server
-            let res = fetch('http://localhost:3000/randomWord', {
+            let res = fetch('/randomWord', {
                         method: "GET"
                     })
             res.then((res) => res.json())
@@ -171,7 +171,7 @@
                 // Update the count at the screen
                 countEl.textContent = count
                 // Get another word, meaning, sentence, ngeli and  word_type
-                let res = fetch('http://localhost:3000/randomWord', {
+                let res = fetch('/randomWord', {
                         method: "GET"
                     })
                 res.then((res) => {
@@ -180,7 +180,7 @@
                         if (res.status == 404){
                             // Getting high score from database
                             let highscore;
-                            let res2 = fetch('http://localhost:3000/highscore/random', {
+                            let res2 = fetch('/highscore/random', {
                                 method: "GET"
                             })
                             res2.then((res2)=>res2.json())
