@@ -134,11 +134,29 @@ async function getRandomWord(req, res){
     }
 }
 
+async function displayHighscore(req, res){
+    // Get gamemode from params
+    const gamemode = req.params.gamemode
+
+    // Getting details from database
+    try {
+        let data = await pool.query(statements.displayHighscore, [gamemode])
+        // Check if data is empty
+        if (data.rowCount == 0){
+            return res.status(404).json({data: 'No highscores in system'})
+        }
+        res.status(200).json({data: data.rows})
+    }catch(err){
+        res.status(404).json({data: err})
+    }
+}
+
 module.exports = {
     addWord,
     selectWord,
     getWordLiner,
     addScore,
     getHighScore,
-    getRandomWord
+    getRandomWord,
+    displayHighscore
 }

@@ -49,6 +49,13 @@ app.get('/random', (req, res) => {
 
 app.get('/randomWord', word.getRandomWord)
 
+// Highscore page
+app.get('/highscorepage', (req, res) => {
+    res.sendFile(path.join(__dirname + '/web/highscore.html'))
+})
+
+app.get('/displayHighscore/:gamemode', word.displayHighscore)
+
 app.get('*', (req, res) =>{
     res.status(404).send('Resource not Found')
 })

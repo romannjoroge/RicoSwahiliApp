@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Swahili Site</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  </head>
+  <body>
+    <!--Body of the site-->
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Rico Swahili Game</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/add">Add</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/game">Game</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/highscorepage">High Scores</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <!--Paragraph-->
+    <h2>Hey boy! Hope you didn't wait too long for this site but its finally come!!</h2>
+    <p>Here are your highscores</p>
+
+    <!--Table for showing highscores-->
+    <table id="highscore-table" class="table table-striped">
+        <tr>
+            <th>Score</th>
+            <th>Time</th>
+            <th>Game mode</th>
+        </tr>
+        <!--Row for linear gamemode-->
+        <tr id="linear-gamemode">
+            
+        </tr>
+        <!--Row for random gamemode-->
+        <tr id="random-gamemode">
+            
+        </tr>
+    </table>
+
+    <p>Good luck in your exams!</p>
+    <script>
+        // Initializing variables
+        let highscore = []
+        let timegotten = []
+
+        // Getting elements from page
+        let linearGamemodeEl = document.getElementById('linear-gamemode')
+        let randomGamemodeEl = document.getElementById('random-gamemode')
+
+        // Adding a listener for when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get highscores from server
+            // Linear gamemode highscore
+            let res1 = fetch('/displayHighscore/linear', {
+                method: "GET"
+            })
+            res1.then((res1) => res1.json())
+            .then((data) => {
+                // Extracting data from the server
+                if (typeof data['data'] == Object){
+                    data = data['data']
+                }else{
+                    data = data['data'][0]
+                }
+                highscore[0] = data['score']
+                timegotten[0] = data['timegotten']
+
+                // Get random gamemode data
+                let res2 = fetch('/displayHighscore/random', {
+                    method: "GET"
+                })
+                res2.then((res2) => res2.json())
+                .then((data) => {
+                    if (typeof data['data'] == Object){
+                        data = data['data']
+                    }else{
+                        data = data['data'][0]
+                    }
+                    highscore[1] = data['score']
+                    timegotten[1] = data['timegotten']
+                    
+                    // Inserting data in table
+                    linearGamemodeEl.innerHTML = `
+                        <td>${highscore[0]}</td>
+                        <td>${timegotten[0]}</td>
+                        <td>Linear</td>
+                    `
+                    randomGamemodeEl.innerHTML = `
+                        <td>${highscore[1]}</td>
+                        <td>${timegotten[1]}</td>
+                        <td>Random</td>
+                    `
+                })
+            })
+        })
+    </script>
+  </body>
+</html>
